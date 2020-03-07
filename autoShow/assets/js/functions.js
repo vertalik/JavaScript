@@ -444,15 +444,18 @@ function creatTableCarHandler(action) {
   const tableData = getTableDataSet();
   const currentObj = getCurrentObj(tableData);
 
+  let rezaultTable;
   if (action === 'buy') {
-    creatBuyCarTable(money);
+    rezaultTable = creatBuyCarTable(money);
   }
 
   if (action === 'sell') {
-    creatSellCarTable(currentObj);
+   rezaultTable = creatSellCarTable(currentObj);
   }
-  $(carTable).append(fragment).click((e)=> selectedCarHandler(e));
+  if (rezaultTable) {
+    $(carTable).append(fragment).click((e)=> selectedCarHandler(e));
   $(div).append(closeBtn, carTable).appendTo(formWrapper);
+  }
 }
 
 function creatBuyCarTable(money) {
@@ -460,7 +463,7 @@ function creatBuyCarTable(money) {
     if (carsList.length === 0) {
       showPatternMsg('Sorry, all cars bought or not enough money.', 'alert-danger');
       msgHide = setTimeout(hideMsg, 3000, 'error__pattern');
-      return;
+      return false;
     }
     carsList.forEach(elem => {
       const tr = creatTableRow(elem.id, elem.name);
@@ -471,6 +474,7 @@ function creatBuyCarTable(money) {
       $(tr).children().last().replaceWith(td);
       $(tr).append(tdPrice).appendTo(fragment);
     });
+  return true;
 }
 
 function creatSellCarTable(currentObj) {
@@ -478,7 +482,7 @@ function creatSellCarTable(currentObj) {
     if (seller.car.length === 0) {
       showPatternMsg('Sorry, nothing to sell.', 'alert-danger');
       msgHide = setTimeout(hideMsg, 3000, 'error__pattern');
-      return;
+      return false;
     }
     seller.car.forEach(car => {
       const carOnSale = cars.filter(carObj => carObj.id === car)[0];
@@ -490,6 +494,7 @@ function creatSellCarTable(currentObj) {
       $(tr).children().last().replaceWith(td);
       $(tr).append(tdPrice).appendTo(fragment);
     });
+  return true;
 }
 
 function selectedCarHandler({ target }) {
