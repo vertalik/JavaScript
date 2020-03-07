@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.clock__wrapper {
+  display: flex;
+  width: fit-content;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+.block__number {
+  display: flex;
+  height: 100px;
+  width: fit-content;
+}
+
+.point {
+  font-size: 6rem;
+  color: #00a690;
+  line-height: 1;
+}
+
+.content__wrapper {
+  height: 100vh;
+  background-color: #000;
+}
